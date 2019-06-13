@@ -251,6 +251,11 @@ Login.prototype.postLogin = function(req, res, next) {
       req.session.failedLoginAttempts = user.failedLoginAttempts;
       user.failedLoginAttempts = 0;
       user.accountLocked = false;
+      
+      //Set Active's data
+      req.session.region = user.region;
+      req.session.dealer = user.dealer;
+      req.session.importador = user.importador;
 
       // save user to db
       adapter.update(user, function(updateErr, updatedUser) {
