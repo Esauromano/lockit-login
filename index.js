@@ -254,8 +254,10 @@ Login.prototype.postLogin = function(req, res, next) {
       
       //Set Active's data
       req.session.region = user.region;
-      req.session.dealer = user.dealer;
+      req.session.dealer = user.entidad;
       req.session.importador = user.importador;
+      req.session.pais = user.pais;
+      
 
       // save user to db
       adapter.update(user, function(updateErr, updatedUser) {
