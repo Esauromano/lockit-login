@@ -38,12 +38,12 @@ var Login = module.exports = function(config, adapter) {
 
   // set default routes
   this.loginRoute = config.login.route || '/login';
-  var logoutRoute = config.login.logoutRoute || '/logout';
+  this.logoutRoute = config.login.logoutRoute || '/logout';
 
   // change URLs if REST is active
   if (config.rest) {
     this.loginRoute = '/rest' + this.loginRoute;
-    logoutRoute = '/rest' + logoutRoute;
+    this.logoutRoute = '/rest' + this.logoutRoute;
   }
 
   // two-factor authentication route
@@ -53,7 +53,8 @@ var Login = module.exports = function(config, adapter) {
   router.get(this.loginRoute, this.getLogin.bind(this));
   router.post(this.loginRoute, this.postLogin.bind(this));
   router.post(this.twoFactorRoute, this.postTwoFactor.bind(this));
-  router.post(logoutRoute, utils.restrict(config), this.postLogout.bind(this));
+  router.get(this.logoutRoute,utils.restrict(config), this.postLogout.bind(this));
+  router.post(this.logoutRoute, utils.restrict(config), this.postLogout.bind(this));
   this.router = router;
 
 };
